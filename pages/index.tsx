@@ -3,17 +3,22 @@ import Layout from "@components/Layout/Layout";
 import KawaiiHeader from "@components/KawaiiHeader/KawaiiHeader";
 import ProductList from "@components/ProductList/ProductList";
 
-const Home = () => {
-  const [productList, setProductList] = useState<TProduct[]>([]);
+export const getServerSideProps = async () => {
+  const PROTOCOL = process.env.PROTOCOL;
+  const URL = process.env.BKND_URL;
 
-  useEffect(() => {
-    window
-      .fetch("/api/avo")
-      .then((response) => response.json())
-      .then(({ data }: TAPIAvoResponse) => {
-        setProductList(data);
-      });
-  }, []);
+  const response = await fetch(`${PROTOCOL}${URL}/api/avo`);
+  const { data: productList }: TAPIAvoResponse = await response.json();
+
+  return {
+    props: {
+      productList,
+    },
+  };
+};
+
+const HomePage = ({ productList }: { productList: TProduct[] }) => {
+  // const [productList, setProductList] = useState<TProduct[]>([]);
 
   return (
     <Layout>
@@ -23,4 +28,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
