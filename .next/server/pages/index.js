@@ -14,7 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ pages),
-  "getServerSideProps": () => (/* binding */ getServerSideProps)
+  "getStaticProps": () => (/* binding */ getStaticProps)
 });
 
 // EXTERNAL MODULE: external "react"
@@ -224,7 +224,8 @@ const ProductList = ({
 
 
 
-const getServerSideProps = async () => {
+const getStaticProps = async () => {
+  // page only
   const PROTOCOL = process.env.PROTOCOL;
   const URL = process.env.BKND_URL;
   const response = await fetch(`${PROTOCOL}${URL}/api/avo`);
